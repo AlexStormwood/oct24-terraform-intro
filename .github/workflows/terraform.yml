@@ -24,7 +24,12 @@ jobs:
       - run: terraform init
 
       - id: plan
-        run: terraform plan -no-color
+        run: terraform plan -no-color -out ./tfplan
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: aws-infra-plan
+          path: ./tfplan
 
       - name: terraform-output
         uses: dflook/terraform-output@v2.1.0
